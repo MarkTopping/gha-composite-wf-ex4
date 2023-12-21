@@ -92,9 +92,12 @@ jobs:
     needs: [publish]
     environment: test secondary
     steps:
+      - name: Generate Random Number
+        id: rnd
+        run: echo "::set-output name=random:$(echo $RANDOM % 10)"
       - name: Check for Force Failure
         #if: ${{ inputs.ForceFailTest2 == true }}
-        if: ${{ echo $(( $RANDOM % 10 %2 )) == 0 }}
+        if: ${{ steps.rnd.outputs.random < 4 }}
         run: |
           echo: "Deployment to Test Region 2 was force failed by user"
           exit 1
@@ -120,8 +123,12 @@ jobs:
     needs: [deploy-to-test-region-1, deploy-to-test-region-2]
     environment: uat secondary
     steps:
+      - name: Generate Random Number
+        id: rnd
+        run: echo "::set-output name=random:$(echo $RANDOM % 10)"
       - name: Check for Force Failure
-        if: ${{ echo $(( $RANDOM % 10 %2 )) == 0 }}
+        #if: ${{ inputs.ForceFailTest2 == true }}
+        if: ${{ steps.rnd.outputs.random < 4 }}
         # if: ${{ inputs.ForceFailUat2 == true }}
         run: |
           echo: "Deployment to UAT Region 2 was force failed by user"
@@ -147,9 +154,12 @@ jobs:
     needs: [deploy-to-uat-region-1, deploy-to-uat-region-2]
     environment: prd secondary
     steps:
+      - name: Generate Random Number
+        id: rnd
+        run: echo "::set-output name=random:$(echo $RANDOM % 10)"
       - name: Check for Force Failure
-        # if: ${{ inputs.ForceFailPrd2 == true }}
-        if: ${{ echo $(( $RANDOM % 10 %2 )) == 0 }}
+        #if: ${{ inputs.ForceFailTest2 == true }}
+        if: ${{ steps.rnd.outputs.random < 4 }}
         run: |
           echo: "Deployment to PRD Region 2 was force failed by user"
           exit 1
