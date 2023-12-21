@@ -1,4 +1,4 @@
-name: GHA Composite WF Example 2 - V3
+name: GHA Composite WF Example 4 - V1
 
 run-name:  "#${{ github.run_number }}. Build and Deploy on ${{ github.ref_type }} '${{ github.ref_name }}'. Triggered by: ${{ github.triggering_actor }}"
 
