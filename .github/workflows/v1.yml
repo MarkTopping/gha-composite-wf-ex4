@@ -94,7 +94,12 @@ jobs:
     steps:
       - name: Generate Random Number
         id: rnd
-        run: echo "::set-output name=random:$(echo $RANDOM % 10)"
+        run: |
+          export RANDOM_NUMBER=$(echo $RANDOM)
+          echo "Random Number =" $RANDOM_NUMBER
+          export MOD_RANDOM=$((RANDOM_NUMBER %2))
+          echo "Mod Random Number =" $MOD_RANDOM
+          echo "::set-output name=random::$(echo $MOD_RANDOM)"
       - name: Check for Force Failure
         #if: ${{ inputs.ForceFailTest2 == true }}
         if: ${{ steps.rnd.outputs.random < 4 }}
