@@ -102,7 +102,7 @@ jobs:
           echo "::set-output name=random::$(echo $MOD_RANDOM)"
       - name: Check for Force Failure
         #if: ${{ inputs.ForceFailTest2 == true }}
-        if: ${{ steps.rnd.outputs.random < 4 }}
+        if: ${{ steps.rnd.outputs.random == 0 }}
         run: |
           echo: "Deployment to Test Region 2 was force failed by user"
           exit 1
