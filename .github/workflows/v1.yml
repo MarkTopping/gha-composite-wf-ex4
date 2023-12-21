@@ -94,7 +94,7 @@ jobs:
     steps:
       - name: Check for Force Failure
         #if: ${{ inputs.ForceFailTest2 == true }}
-        if: ${{ $RANDOM %2 == 0 }}
+        if: ${{ echo $(( $RANDOM % 10 %2 )) == 0 }}
         run: |
           echo: "Deployment to Test Region 2 was force failed by user"
           exit 1
@@ -121,7 +121,7 @@ jobs:
     environment: uat secondary
     steps:
       - name: Check for Force Failure
-        if: ${{ $RANDOM %2 == 0 }}
+        if: ${{ echo $(( $RANDOM % 10 %2 )) == 0 }}
         # if: ${{ inputs.ForceFailUat2 == true }}
         run: |
           echo: "Deployment to UAT Region 2 was force failed by user"
@@ -149,7 +149,7 @@ jobs:
     steps:
       - name: Check for Force Failure
         # if: ${{ inputs.ForceFailPrd2 == true }}
-        if: ${{ $RANDOM %2 == 0 }}
+        if: ${{ echo $(( $RANDOM % 10 %2 )) == 0 }}
         run: |
           echo: "Deployment to PRD Region 2 was force failed by user"
           exit 1
